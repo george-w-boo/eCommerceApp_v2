@@ -1,41 +1,29 @@
-import hats from "./assets/hats.jpg";
-import jackets from "./assets/jackets.jpg";
-import sneakers from "./assets/sneakers.jpg";
-import women from "./assets/women.jpg";
-import men from "./assets/men.jpg";
+import { Routes, Route, Outlet } from "react-router-dom";
+import Navigation from "./routes/Navigation/Navigation";
+import Home from "./routes/Home/Home";
+import SignIn from "./routes/SignIn/SignIn";
 
-import Directory from "./components/Directory/Directory";
-
-const categories = [
-  {
-    id: 1,
-    title: "hats",
-    imageUrl: hats,
-  },
-  {
-    id: 2,
-    title: "jackets",
-    imageUrl: jackets,
-  },
-  {
-    id: 3,
-    title: "sneakers",
-    imageUrl: sneakers,
-  },
-  {
-    id: 4,
-    title: "women",
-    imageUrl: women,
-  },
-  {
-    id: 5,
-    title: "men",
-    imageUrl: men,
-  },
-];
+const Shop = () => {
+  return (
+    <div>
+      <div>
+        <h1>Shop</h1>
+      </div>
+      <Outlet />
+    </div>
+  );
+};
 
 const App = () => {
-  return <Directory categories={categories} />;
+  return (
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        <Route index element={<Home />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="sign-in" element={<SignIn />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;
