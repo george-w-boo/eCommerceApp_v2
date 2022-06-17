@@ -30,6 +30,10 @@ const provider = new GoogleAuthProvider({
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+// EXAMPLE WITH GOOGLE REDIRECT SIGN-IN
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, provider);
+
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
