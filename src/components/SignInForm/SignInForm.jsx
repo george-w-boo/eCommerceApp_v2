@@ -54,7 +54,22 @@ const SignInForm = () => {
 
       resetFormFields();
     } catch(error) {
-      console.log(error);
+      console.log(error.code);
+      switch(error.code) {
+        case 'auth/wrong-password':
+          alert('wrong password');
+          break;
+        case 'auth/user-not-found':
+          alert('the user does not exist');
+          break;
+        default:
+          alert('something went wrong');
+          console.log('error', error);
+          return;
+      }
+      if (error.code === 'auth/wrong-password') {
+        
+      }
     }
   }
 
@@ -77,8 +92,8 @@ const SignInForm = () => {
         <FormInput label='Password' type="password" required onChange={handleChange} name='password' value={password} />
         <div className='buttons-container'>
           <Button type='submit' onClick={handleSubmit}>Sign In</Button>
-          <Button onClick={signInWithGoogle} buttonType='google'>Sign-in with Google</Button>
-          {/* <button onClick={logGoogleRedirectUser}>Sign-in with Google Redirect</button> */}
+          <Button onClick={signInWithGoogle} buttonType='google' type='button'>Sign-in with Google</Button>
+          {/* <Button onClick={logGoogleRedirectUser} buttonType='google' type='button'>Sign-in with Google Redirect</Button> */}
         </div>
       </form>
     </div>
