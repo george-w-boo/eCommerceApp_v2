@@ -1,9 +1,7 @@
 // import { useEffect } from 'react';
-import { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/UserContex';
+import { useState } from 'react';
 import { 
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   // signInWithGoogleRedirect,
   // auth
@@ -33,8 +31,6 @@ const SignInForm = () => {
   const [ formFields, setFormFields ] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   }
@@ -49,9 +45,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-
-      setCurrentUser(user);
+      await signInAuthUserWithEmailAndPassword(email, password);
 
       resetFormFields();
     } catch(error) {
@@ -68,18 +62,11 @@ const SignInForm = () => {
           console.log('error', error);
           return;
       }
-      if (error.code === 'auth/wrong-password') {
-        
-      }
     }
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-
-    setCurrentUser(user);
-    
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   // const logGoogleRedirectUser = async () => {
