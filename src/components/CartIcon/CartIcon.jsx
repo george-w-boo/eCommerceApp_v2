@@ -6,11 +6,20 @@ import './CartIcon.scss';
 const CartIcon = () => {
   const { toggleCartIconDropdown, cartItems } = useContext(CartContext);
 
-  console.log('CartIcon > cartItems', cartItems);
+  const countCartItems = () => {
+    if (!cartItems.length) return 0;
+
+    return cartItems.reduce((acc, cartItem) => {
+      console.log('acc', acc);
+      console.log('curItem', cartItem);
+      return acc + cartItem.quantity
+    }, 0)
+  };
+
   return (
     <div className='cart-icon-container' onClick={toggleCartIconDropdown}>
-      <ShoppingIcon className='shopping-icon'  />
-      <span className="item-count">{cartItems?.length}</span>
+      <ShoppingIcon className='shopping-icon' />
+      <span className="item-count">{countCartItems()}</span>
     </div>
   )
 }
