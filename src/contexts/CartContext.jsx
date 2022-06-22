@@ -1,10 +1,22 @@
 import { createContext, useState } from 'react';
 
+const findSameCartItemIndex = (item, items) => {
+  const sameProductIndex = items.findIndex(productInCart => productInCart.id === item.id);
+
+  if (sameProductIndex < 0) {
+    return null;
+  }
+
+  return sameProductIndex;
+}
+
 export const CartContext = createContext({
   isCartOpen: false,
   toggleCartIconDropdown: () => {},
   cartItems: [],
-  addItemToCart: () => {}
+  addItemToCart: () => {},
+  removeItemFromCart: () => {},
+  removeCartItem: () => {}
 });
 
 export const CartProvider = ({children}) => {
@@ -18,22 +30,32 @@ export const CartProvider = ({children}) => {
     console.log('isCartOpen', isCartOpen)
   }
 
-  const addItemToCart = (productToAdd) => {
-    const sameProductIndex = cartItems.findIndex(productInCart => productInCart.id === productToAdd.id);
+  const addItemToCart = (itemToAdd) => {
+    const sameProductIndex = findSameCartItemIndex(itemToAdd, cartItems);
 
-    if (sameProductIndex < 0) {
-      setProductsInCart([...cartItems, {...productToAdd, quantity: 1}]);
+    if (sameProductIndex === null) {
+      setProductsInCart([...cartItems, {...itemToAdd, quantity: 1}]);
 
       return;
     }
 
-    const updatedCart = [...cartItems];
-    updatedCart[sameProductIndex].quantity += 1;
+    cartItems[sameProductIndex].quantity += 1;
 
-    setProductsInCart(updatedCart);
+    setProductsInCart([...cartItems]);
   }
 
-  const value = { isCartOpen, toggleCartIconDropdown, cartItems, addItemToCart };
+  const removeItemFromCart = (itemToRemove) => {
+    const sameProductIndex = findSameCartItemIndex(itemToRemove, cartItems);
+    cartItems[sameProductIndex].quantity -= 1;
+
+    setProductsInCart([...cartItems]);
+  }
+
+  const removeCartItem = (productToRemove) => {
+    setProductsInCart(cartItems.filter(cartItem => cartItem.id !== productToRemove.id));
+  }
+
+  const value = { isCartOpen, toggleCartIconDropdown, cartItems, addItemToCart, removeItemFromCart, removeCartItem };
 
   return (
     <CartContext.Provider value={value}>{children}</CartContext.Provider>

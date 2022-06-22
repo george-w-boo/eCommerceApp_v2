@@ -5,6 +5,7 @@ import Authentication from "./routes/Authentication/Authentication";
 import { ProductsProvider } from "./contexts/ProductContext";
 import { CartProvider } from "./contexts/CartContext";
 import Shop from "./routes/Shop/Shop";
+import Checkout from "./routes/Checkout/Checkout";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           }
         />
         <Route path="auth" element={<Authentication />} />
+        <Route path="checkout" element={<Checkout />} />
       </Route>
     </Routes>
   );
