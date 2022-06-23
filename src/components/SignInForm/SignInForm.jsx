@@ -9,6 +9,7 @@ import {
 // import { getRedirectResult } from 'firebase/auth';
 import FormInput from "../common/FormInput/FormInput";
 import Button from "../common/Button/Button";
+import { BUTTON_TYPE } from '../../utils/enums';
 import '../SignUpForm/SignUpForm';
 
 const defaultFormFields = {
@@ -82,7 +83,7 @@ const SignInForm = () => {
         <FormInput label='Password' type="password" required onChange={handleChange} name='password' value={password} />
         <div className='buttons-container'>
           <Button type='submit' onClick={handleSubmit}>Sign In</Button>
-          <Button onClick={signInWithGoogle} buttonType='google' type='button'>Sign-in with Google</Button>
+          <Button onClick={signInWithGoogle} buttonType={BUTTON_TYPE.google} type='button'>Sign-in with Google</Button>
           {/* <Button onClick={logGoogleRedirectUser} buttonType='google' type='button'>Sign-in with Google Redirect</Button> */}
         </div>
       </form>

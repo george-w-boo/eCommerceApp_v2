@@ -39,13 +39,9 @@ export const CartProvider = ({children}) => {
 
     setCartTotal(newCartTotal);
   }, [cartItems]);
-
-
-  console.log('CartContext > cartItems', cartItems);
   
   const toggleCartIconDropdown = () => {
     setIsCartOpen(prevState => !prevState);
-    console.log('isCartOpen', isCartOpen)
   }
 
   const addItemToCart = (itemToAdd) => {

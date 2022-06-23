@@ -8,7 +8,6 @@ const CheckoutItem = ({cartItem}) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
   const handleDecrement = product => {
-    console.log('product quantity', product.quantity);
     if (product.quantity <= 1) {
       return;
     };
