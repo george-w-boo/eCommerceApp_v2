@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useReducer } from 'react';
+import { createAction } from '../utils/reducer/reducer';
 
 const findSameCartItemIndex = (item, items) => {
   const sameProductIndex = items.findIndex(productInCart => productInCart.id === item.id);
@@ -8,6 +9,38 @@ const findSameCartItemIndex = (item, items) => {
   }
 
   return sameProductIndex;
+}
+
+export const CART_ACTION_TYPES = {
+  TOGGLE_DROPDOWN: 'TOGGLE_DROPDOWN',
+  SET_CART_ITEMS: 'SET_CART_ITEMS',
+}
+
+const cartReducer = (state, action) => {
+  const { type, payload } = action;
+  // console.log('cartReducer > action', action);
+
+  switch(type) {
+    case CART_ACTION_TYPES.TOGGLE_DROPDOWN:
+      return {
+        ...state,
+        isCartOpen: !state.isCartOpen,
+      }
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
+      return {
+        ...state,
+        ...payload,
+      }
+      default:
+        throw new Error(`Unhandled type ${type} in userReducer`);
+  }
+}
+
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal: 0,
 }
 
 export const CartContext = createContext({
@@ -23,50 +56,59 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({children}) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setProductsInCart] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
-  const [cartTotal, setCartTotal] = useState(0);
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
-  useEffect(() => {
-    const newCartCount = cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
+  const { isCartOpen, cartItems, cartCount, cartTotal } = state;
 
-    setCartCount(newCartCount);
-  }, [cartItems]);
+  const updateCartItemsReducer = (newCartItems) => {
+    const newCartCount = newCartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
+    const newCartTotal = newCartItems.reduce((totalPrice, cartItem) => totalPrice + cartItem.price * cartItem.quantity, 0);
 
-  useEffect(() => {
-    const newCartTotal = cartItems.reduce((totalPrice, cartItem) => totalPrice + cartItem.price * cartItem.quantity, 0);
-
-    setCartTotal(newCartTotal);
-  }, [cartItems]);
+    dispatch(createAction(
+      CART_ACTION_TYPES.SET_CART_ITEMS,
+      {
+        cartItems: newCartItems,
+        cartCount: newCartCount,
+        cartTotal: newCartTotal
+      }
+    ));
+  }
   
   const toggleCartIconDropdown = () => {
-    setIsCartOpen(prevState => !prevState);
+    dispatch(createAction(CART_ACTION_TYPES.TOGGLE_DROPDOWN))
   }
 
   const addItemToCart = (itemToAdd) => {
-    const sameProductIndex = findSameCartItemIndex(itemToAdd, cartItems);
+    // console.log('addItemToCart triggered');
+    const cartItemsCopy = [...cartItems];
+
+    const sameProductIndex = findSameCartItemIndex(itemToAdd, cartItemsCopy);
 
     if (sameProductIndex === null) {
-      setProductsInCart([...cartItems, {...itemToAdd, quantity: 1}]);
+      cartItemsCopy.push({...itemToAdd, quantity: 1})
+      updateCartItemsReducer(cartItemsCopy);
 
       return;
     }
 
-    cartItems[sameProductIndex].quantity += 1;
+    cartItemsCopy[sameProductIndex].quantity += 1;
 
-    setProductsInCart([...cartItems]);
+    // console.log('addItemToCart > cartItemsCopy', cartItemsCopy);
+    updateCartItemsReducer(cartItemsCopy);
   }
 
   const removeItemFromCart = (itemToRemove) => {
-    const sameProductIndex = findSameCartItemIndex(itemToRemove, cartItems);
-    cartItems[sameProductIndex].quantity -= 1;
+    const cartItemsCopy = [...cartItems];
 
-    setProductsInCart([...cartItems]);
+    const sameProductIndex = findSameCartItemIndex(itemToRemove, cartItemsCopy);
+    cartItemsCopy[sameProductIndex].quantity -= 1;
+
+    updateCartItemsReducer([...cartItemsCopy]);
   }
 
   const removeCartItem = (productToRemove) => {
-    setProductsInCart(cartItems.filter(cartItem => cartItem.id !== productToRemove.id));
+    const cartItemsCopy = [...cartItems];
+    updateCartItemsReducer(cartItemsCopy.filter(cartItem => cartItem.id !== productToRemove.id));
   }
 
   const value = {
@@ -80,6 +122,7 @@ export const CartProvider = ({children}) => {
     removeCartItem,
   };
 
+  // console.log('CartContext > cartItems', cartItems);
   return (
     <CartContext.Provider value={value}>{children}</CartContext.Provider>
   )
