@@ -1,12 +1,6 @@
-// import { useEffect } from 'react';
 import { useState } from 'react';
-import { 
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-  // signInWithGoogleRedirect,
-  // auth
-} from '../../utils/firebase/firebase';
-// import { getRedirectResult } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 import FormInput from "../common/FormInput/FormInput";
 import Button from "../common/Button/Button";
 import { BUTTON_TYPE } from '../../utils/enums';
@@ -18,19 +12,10 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
-  // EXAMPLE WITH GOOGLE REDIRECT SIGN-IN
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await getRedirectResult(auth);
-  
-  //     if (response) {
-  //       const userDocRef = await createUserDocumentFromAuth(response.user);
-  //     }
-  //   })()
-  // }, []);
-
   const [ formFields, setFormFields ] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  const dispatch = useDispatch();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -46,7 +31,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
 
       resetFormFields();
     } catch(error) {
@@ -67,13 +52,9 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart());
   };
 
-  // const logGoogleRedirectUser = async () => {
-  //   const { user } = await signInWithGoogleRedirect();
-  //   const userDocRef = await createUserDocumentFromAuth(user);
-  // }
   return (
     <div className='sign-up-container'>
       <h2>I already have an account</h2>
@@ -84,7 +65,6 @@ const SignInForm = () => {
         <div className='buttons-container'>
           <Button type='submit' onClick={handleSubmit}>Sign In</Button>
           <Button onClick={signInWithGoogle} buttonType={BUTTON_TYPE.google} type='button'>Sign-in with Google</Button>
-          {/* <Button onClick={logGoogleRedirectUser} buttonType='google' type='button'>Sign-in with Google Redirect</Button> */}
         </div>
       </form>
     </div>
