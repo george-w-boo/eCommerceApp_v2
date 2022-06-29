@@ -24,3 +24,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
+//added env variables in netlify settings
