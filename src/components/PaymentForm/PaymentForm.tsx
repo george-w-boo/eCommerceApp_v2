@@ -68,3 +68,5 @@ const PaymentForm = () => {
 }
 
 export default PaymentForm;
+
+// fixed paymentHandler
