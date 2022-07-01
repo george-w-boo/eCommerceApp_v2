@@ -6,11 +6,15 @@ import ProductCard from '../../components/common/ProductCard/ProductCard';
 import Spinner from '../../components/common/Spinner/Spinner';
 import './Category.scss';
 
+type CategoryRouteParams = {
+  category: string;
+}
+
 const Category = () => {
-  const [products, setProducts] = useState([]);
+  const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  const { category } = useParams();
+  const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {
     setProducts(categoriesMap[category]);
