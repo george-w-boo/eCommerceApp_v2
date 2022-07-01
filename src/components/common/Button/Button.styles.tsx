@@ -26,7 +26,7 @@ export const BaseButton = styled.button`
     border: 1px solid black;
   }
 `;
-BaseButton.name = 'BaseButton';
+BaseButton.displayName = 'BaseButton';
 
 export const GoogleSignInButton = styled(BaseButton)`
   background-color: #4285f4;
@@ -37,7 +37,7 @@ export const GoogleSignInButton = styled(BaseButton)`
     border: none;
   }
 `;
-GoogleSignInButton.name = 'GoogleSignInButton';
+GoogleSignInButton.displayName = 'GoogleSignInButton';
 
 export const InvertedButton = styled(BaseButton)`
   background-color: white;
@@ -50,10 +50,10 @@ export const InvertedButton = styled(BaseButton)`
     border: none;
   }
 `;
-InvertedButton.name = 'InvertedButton';
+InvertedButton.displayName = 'InvertedButton';
 
 export const ButtonSpinner = styled(SpinnerContainer)`
   width: 30px;
   height: 30px;
 `;
-ButtonSpinner.name = 'ButtonSpinner';
+ButtonSpinner.displayName = 'ButtonSpinner';
