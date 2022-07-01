@@ -8,14 +8,14 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 25px;
 `;
-NavigationContainer.name = 'NavigationContainer';
+NavigationContainer.displayName = 'NavigationContainer';
 
 export const LogoContainer = styled(Link)`
     height: 100%;
     width: 70px;
     padding: 25px;
 `;
-LogoContainer.name = 'LogoContainer';
+LogoContainer.displayName = 'LogoContainer';
 
 export const NavLinks = styled.div`
     width: 50%;
@@ -24,10 +24,10 @@ export const NavLinks = styled.div`
     align-items: center;
     justify-content: flex-end;
   `;
-NavLinks.name = 'NavLinks';
+NavLinks.displayName = 'NavLinks';
 
 export const NavLink = styled(Link)`
     padding: 10px 15px;
     cursor: pointer;
 `;
-NavLink.name = 'NavLink';
+NavLink.displayName = 'NavLink';

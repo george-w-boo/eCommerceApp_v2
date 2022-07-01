@@ -8,8 +8,11 @@ const shrinkLabelStyles = css`
   font-size: 12px;
   color: ${mainColor};
 `;
+type FormInputLabelProps = {
+  shrink?: boolean;
+}
 
-export const FormInputLabel = styled.label`
+export const FormInputLabel = styled.label<FormInputLabelProps>`
   color: ${subColor};
   font-size: 16px;
   font-weight: normal;
@@ -21,7 +24,7 @@ export const FormInputLabel = styled.label`
 
   ${({shrink}) => shrink && shrinkLabelStyles};
 `;
-FormInputLabel.name = 'FormInputLabel';
+FormInputLabel.displayName = 'FormInputLabel';
 
 export const Input = styled.input`
   background: none;
@@ -44,7 +47,7 @@ export const Input = styled.input`
     ${shrinkLabelStyles};
   }
 `
-Input.name = 'Input';
+Input.displayName = 'Input';
 
 export const Group = styled.div`
   position: relative;
@@ -54,4 +57,4 @@ export const Group = styled.div`
     letter-spacing: 0.3em;
   }
 `;
-Group.name = 'Group';
+Group.displayName = 'Group';

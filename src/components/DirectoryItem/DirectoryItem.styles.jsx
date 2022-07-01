@@ -7,7 +7,7 @@ export const BackgroundImage = styled.div`
   background-position: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), ${({imageUrl}) => `url(${imageUrl})`};
 `;
-BackgroundImage.name = 'BackgroundImage';
+BackgroundImage.displayName = 'BackgroundImage';
 
 export const Body = styled.div`
   height: 90px;
@@ -34,7 +34,7 @@ export const Body = styled.div`
     font-size: 16px;
   }
 `;
-Body.name = 'Body';
+Body.displayName = 'Body';
 
 export const DirectoryItemContainer = styled.div`
   min-width: 30%;
@@ -71,4 +71,4 @@ export const DirectoryItemContainer = styled.div`
     margin-left: 7.5px;
   }
 `;
-DirectoryItemContainer.name = 'DirectoryItemContainer';
+DirectoryItemContainer.displayName = 'DirectoryItemContainer';

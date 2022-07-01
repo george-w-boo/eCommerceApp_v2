@@ -8,16 +8,16 @@ export const PaymentFormContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-PaymentFormContainer.name = 'PaymentFormContainer';
+PaymentFormContainer.displayName = 'PaymentFormContainer';
 
 export const FormContainer = styled.form`
   height: 100px;
   min-width: 500px;
 `;
-FormContainer.name = 'FormContainer';
+FormContainer.displayName = 'FormContainer';
 
 export const PaymentButton = styled(Button)`
   margin-left: auto;
   margin-top: 30px;
 `;
-PaymentButton.name = 'PaymentButton';
+PaymentButton.displayName = 'PaymentButton';

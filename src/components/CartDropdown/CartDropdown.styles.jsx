@@ -20,13 +20,13 @@ export const CartDropdownContainer = styled.div`
     margin-top: auto;
   }
 `;
-CartDropdownContainer.name = 'CartDropdownContainer';
+CartDropdownContainer.displayName = 'CartDropdownContainer';
 
 export const EmptyMessage = styled.span`
   font-size: 18px;
   margin: 50px auto;
 `;
-EmptyMessage.name = 'EmptyMessage';
+EmptyMessage.displayName = 'EmptyMessage';
 
 export const CartItems = styled.div`
   height: 240px;
@@ -34,4 +34,4 @@ export const CartItems = styled.div`
   flex-direction: column;
   overflow: scroll;
 `;
-CartItems.name = 'CartItems';
+CartItems.displayName = 'CartItems';

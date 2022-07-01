@@ -5,7 +5,7 @@ export const ShoppingIcon = styled(ShoppingSvg)`
   width: 24px;
   height: 24px;
 `;
-ShoppingIcon.name = 'ShoppingIcon';
+ShoppingIcon.displayName = 'ShoppingIcon';
 
 export const CartIconContainer = styled.div`
   width: 45px;
@@ -16,7 +16,7 @@ export const CartIconContainer = styled.div`
   justify-content: center;
   cursor: pointer;
 `;
-CartIconContainer.name = 'CartIconContainer';
+CartIconContainer.displayName = 'CartIconContainer';
 
 export const ItemCount = styled.span`
   position: absolute;
@@ -24,4 +24,4 @@ export const ItemCount = styled.span`
   font-weight: bold;
   bottom: 12px;
 `;
-ItemCount.name = 'ItemCount';
+ItemCount.displayName = 'ItemCount';
