@@ -69,5 +69,3 @@ const PaymentForm = () => {
 }
 
 export default PaymentForm;
-
-// fixes git push issue
