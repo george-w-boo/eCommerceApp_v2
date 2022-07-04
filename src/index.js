@@ -8,7 +8,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import App from "./App";
 import { stripePromise } from "./utils/stripe/stripe";
 import reportWebVitals from "./reportWebVitals";
-import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
