@@ -60,6 +60,7 @@ const PaymentForm = () => {
     <PaymentFormContainer>
       <FormContainer onSubmit={paymentHandler}>
         <h2>Credit Card Payment:</h2>
+        <p style={{color: 'red'}}>Use 4242 4242 4242 4242, any date that is fresher than your current data, and any CVC</p>
         <CardElement />
         <PaymentButton isLoading={isProcessingPayment} buttonType={BUTTON_TYPE.inverted}>Pay now</PaymentButton>
       </FormContainer>
@@ -69,4 +70,4 @@ const PaymentForm = () => {
 
 export default PaymentForm;
 
-// fixed paymentHandler
+// fixes git push issue
